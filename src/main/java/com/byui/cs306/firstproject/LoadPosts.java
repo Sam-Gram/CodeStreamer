@@ -5,6 +5,7 @@
  */
 package com.byui.cs306.firstproject;
 
+import com.google.common.collect.Lists;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +59,10 @@ public class LoadPosts extends HttpServlet {
             {
                 String[] temp = strLine.split(":");
                 System.out.println(temp);
-                posts.add(new Post(temp[0], temp[1]));
+                if (temp.length == 2)
+                {
+                    posts.add(new Post(temp[0], temp[1]));
+                }
             }
             br.close();
             file.close();
@@ -68,7 +72,7 @@ public class LoadPosts extends HttpServlet {
             
         }
         
-        request.setAttribute("posts", posts);
+        request.setAttribute("posts", Lists.reverse(posts));
         
         
         request.getRequestDispatcher("discussion.jsp").forward(request, response);

@@ -10,8 +10,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/hover.css">
     </head>
-    <body>
+    <body class="container">
+        <h1>Add new post</h1>
         <form action="AddDiscussionPost" method="POST">
             <input type="text" name="author" placeholder="author"><br>
             <input type="text" name="comment" placeholder="comment"><br>

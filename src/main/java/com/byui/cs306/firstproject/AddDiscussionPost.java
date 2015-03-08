@@ -47,7 +47,7 @@ public class AddDiscussionPost extends HttpServlet {
             }
   
 
-            FileWriter fstream = new FileWriter(dir);
+            FileWriter fstream = new FileWriter(dir, true);
             BufferedWriter out = new BufferedWriter(fstream);
 
             out.write(author + ":" + comment);
