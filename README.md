@@ -1,4 +1,2 @@
-# fbbday AKA "Facebook birthday Poster"
-## Goal
-To allow people to post automatically to Facebook during friend's birthday's.
-
+# Code Streamer
+A website that allows people to stream their code to viewers.
