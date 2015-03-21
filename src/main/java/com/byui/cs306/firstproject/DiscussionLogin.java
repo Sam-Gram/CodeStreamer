@@ -35,7 +35,8 @@ public class DiscussionLogin extends HttpServlet {
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         
-        if (username.equals("Sam") && password.equals("graham"))
+        if (username.equals("Sam") && 
+                password.equals("graham"))
         {
             request.getRequestDispatcher("LoadPosts").forward(request, response);
         }
