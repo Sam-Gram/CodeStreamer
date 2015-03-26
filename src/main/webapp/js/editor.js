@@ -5,7 +5,7 @@ $(document).ready(function () {
         matchBrackets: true,
         autoCloseBrackets: true,
         lineNumbers: true
-    })
+    });
     
     console.log(codeMirror);
     
