@@ -1,13 +1,11 @@
-sam = "editor.js loaded";
-
-
-
 $(document).ready(function () {
     var codeMirror = CodeMirror($('#editor').get()[0], {
         value: "function myScript()\n{\n   return 100;\n}\n",
-        mode: "javascript",
+        mode: "clike",
+        matchBrackets: true,
+        autoCloseBrackets: true,
         lineNumbers: true
     });
-    debugger;
+//    debugger;
     console.log(codeMirror);
 });
