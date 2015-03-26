@@ -5,7 +5,12 @@ $(document).ready(function () {
         matchBrackets: true,
         autoCloseBrackets: true,
         lineNumbers: true
-    });
-//    debugger;
+    })
+    
     console.log(codeMirror);
+    
+    // Todo:
+    // Listen for change events and send them to the server
+    // Start an interval to check for new changes
+    
 });
