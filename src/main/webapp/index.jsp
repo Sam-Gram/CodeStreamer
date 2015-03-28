@@ -55,10 +55,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
-                   <h4>Code Streamers
-                    <c:if test="${sessionScope.loggedIn}">
-                        <span>Welcome, ${sessionScope.username}!</span>
-                    </c:if></h4>
+                   <a href="#" class="navbar-brand">Code Streamers <c:if test="${sessionScope.loggedIn}"><small>Welcome ${sessionScope.username}</c:if></small></a>
                     
                     
                </div>
