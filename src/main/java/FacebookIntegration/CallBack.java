@@ -47,12 +47,13 @@ public class CallBack extends HttpServlet {
         
         try {
             request.getSession().setAttribute("username", fb.getName());
+            request.getSession().setAttribute("loggedIn", true);
         } catch (FacebookException ex) {
             Logger.getLogger(CallBack.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalStateException ex) {
             Logger.getLogger(CallBack.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("home.jsp");
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
