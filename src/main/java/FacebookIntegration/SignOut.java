@@ -5,6 +5,7 @@
  */
 package FacebookIntegration;
 
+import facebook4j.Facebook;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,7 +32,22 @@ public class SignOut extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Facebook facebook = (Facebook) request.getSession().getAttribute("facebook");
+        String accessToken = "";
+        try {
+            accessToken = facebook.getOAuthAccessToken().getToken();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+        request.getSession().invalidate();
         
+        // Log Out of Facebook
+        StringBuffer next = request.getRequestURL();
+        int index = next.lastIndexOf("/");
+        next.replace(index+1, next.length(), "index.jsp");
+        request.getSession().setAttribute("loggedIn", false);
+        request.getSession().setAttribute("username", "");
+        response.sendRedirect("http://www.facebook.com/logout.php?next=" + next.toString() + "&access_token=" + accessToken);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
