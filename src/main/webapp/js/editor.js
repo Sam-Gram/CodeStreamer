@@ -64,7 +64,9 @@ $(document).ready(function() {
     var editorDiv = $('#editor').get()[0];
     codeMirror = CodeMirror(editorDiv, {
         value: "function myScript()\n{\n  return 100;\n}\n",
-        mode: "javascript",
+        mode: "clike",
+        matchBrackets: true,
+        autoCloseBrakets: true,
         lineNumbers: true
     });
 });
