@@ -66,3 +66,18 @@ function startEventSource() {
         $("#editor").append("<h1>Your browser is not supported!</h1>");
     }
 }
+
+
+/**
+ * Tells the browser to send a POST every time the user make a change in the text editor.
+ */
+function registerChangeListener() {
+    codeMirror.on("changes", function(editor, change) {
+        $.ajax({
+            type: "POST",
+            url: "Update",
+            data: {change: JSON.stringify(change)}
+        });
+    });
+}
+
