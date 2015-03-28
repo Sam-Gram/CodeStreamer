@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var codeMirror = CodeMirror($('#editor').get()[0], {
+    codeMirror = CodeMirror($('#editor').get()[0], {
         value: "function myScript()\n{\n   return 100;\n}\n",
         mode: "clike",
         matchBrackets: true,
@@ -8,8 +8,8 @@ $(document).ready(function () {
     });
     
     console.log(codeMirror);
-    
-}
+});
+
 /**
  * Use after the page has loaded to let the client know that it's a host.
  * We need this function because we don't currently have a way for the client to decide if it's a host or a viewer.
@@ -65,19 +65,5 @@ function startEventSource() {
         $("#editor").empty();
         $("#editor").append("<h1>Your browser is not supported!</h1>");
     }
-}
-
-
-/**
- * Tells the browser to send a POST every time the user make a change in the text editor.
- */
-function registerChangeListener() {
-    codeMirror.on("changes", function(editor, change) {
-        $.ajax({
-            type: "POST",
-            url: "Update",
-            data: {change: JSON.stringify(change)}
-        });
-    });
 }
 
