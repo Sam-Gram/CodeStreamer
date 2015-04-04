@@ -1,7 +1,15 @@
-<!DOCTYPE html>
+<%-- 
+    Document   : index
+    Created on : Mar 21, 2015, 10:05:36 AM
+    Author     : David, Sam, Austin
+--%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Code Streamers</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--Styles-->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
@@ -47,11 +55,21 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Code Streamers</a>
+                   <a href="#" class="navbar-brand">Code Streamers <c:if test="${sessionScope.loggedIn}"><small>Welcome ${sessionScope.username}</c:if></small></a>
+                    
+                    
                </div>
                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                    <ul class="nav navbar-nav navbar-right">
-                       <li><a href="SignIn">Login with Facebook</a></li>
+                       <c:choose>
+                           <c:when test="${sessionScope.loggedIn}">
+                               <li><a href="SignOut">Logout</a></li>
+                            </c:when>
+                               
+                            <c:otherwise>
+                                <li><a href="SignIn">Login with Facebook</a></li>
+                            </c:otherwise>
+                       </c:choose>
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="caret"></span></a>
                            <ul class="dropdown-menu" role="menu">
@@ -67,3 +85,4 @@
         <div id="editor"></div>
     </body>
 </html>
+

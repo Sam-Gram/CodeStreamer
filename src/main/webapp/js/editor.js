@@ -1,4 +1,14 @@
-sam = "editor.js loaded";
+$(document).ready(function () {
+    codeMirror = CodeMirror($('#editor').get()[0], {
+        value: "function myScript()\n{\n   return 100;\n}\n",
+        mode: "clike",
+        matchBrackets: true,
+        autoCloseBrakets: true,
+        lineNumbers: true
+    });
+    
+    console.log(codeMirror);
+});
 
 /**
  * Use after the page has loaded to let the client know that it's a host.
@@ -57,16 +67,3 @@ function startEventSource() {
     }
 }
 
-/**
- * Set up CodeMirror when the page is ready.
- */
-$(document).ready(function() {
-    var editorDiv = $('#editor').get()[0];
-    codeMirror = CodeMirror(editorDiv, {
-        value: "function myScript()\n{\n  return 100;\n}\n",
-        mode: "clike",
-        matchBrackets: true,
-        autoCloseBrakets: true,
-        lineNumbers: true
-    });
-});
