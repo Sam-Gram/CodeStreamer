@@ -6,6 +6,12 @@ $(document).ready(function () {
         autoCloseBrakets: true,
         lineNumbers: true
     });
+
+    if (isHost) {
+        setHost();
+    } else {
+        setViewer();
+    }
     
     console.log(codeMirror);
 });
@@ -13,7 +19,6 @@ $(document).ready(function () {
 /**
  * Use after the page has loaded to let the client know that it's a host.
  * We need this function because we don't currently have a way for the client to decide if it's a host or a viewer.
- * TODO: Remove this and automatically tell the browser it's a host.
  */
 function setHost() {
     registerChangeListener();
@@ -22,7 +27,6 @@ function setHost() {
 /**
  * Use after the page has loaded to let the client know that it's a viewer.
  * We need this function because we don't currently have a way for the client to decide if it's a host or a viewer.
- * TODO: Remove this and automatically tell the browser it's a viewer.
  */
 function setViewer() {
     startEventSource();

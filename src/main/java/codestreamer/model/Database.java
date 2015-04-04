@@ -1,3 +1,7 @@
+package codestreamer.model;
+
+import codestreamer.CodeStreamerContextListener;
+
 import java.sql.*;
 
 /**
@@ -15,7 +19,7 @@ public class Database {
     private Connection conn;
 
     /**
-     * Database's URL.
+     * codestreamer.model.Database's URL.
      */
     private String url;
 

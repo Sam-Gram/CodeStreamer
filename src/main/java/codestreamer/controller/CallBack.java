@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FacebookIntegration;
+package codestreamer.controller;
 
 import facebook4j.Facebook;
+import facebook4j.FacebookException;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author David
  */
-@WebServlet(name = "SignOut", urlPatterns = {"/SignOut"})
-public class SignOut extends HttpServlet {
+@WebServlet(name = "CallBack", urlPatterns = {"/CallBack"})
+public class CallBack extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,22 +34,25 @@ public class SignOut extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Facebook facebook = (Facebook) request.getSession().getAttribute("facebook");
-        String accessToken = "";
-        try {
-            accessToken = facebook.getOAuthAccessToken().getToken();
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
-        request.getSession().invalidate();
+        Facebook fb = (Facebook) request.getSession().getAttribute("facebook");
         
-        // Log Out of Facebook
-        StringBuffer next = request.getRequestURL();
-        int index = next.lastIndexOf("/");
-        next.replace(index+1, next.length(), "index.jsp");
-        request.getSession().setAttribute("loggedIn", false);
-        request.getSession().setAttribute("username", "");
-        response.sendRedirect("http://www.facebook.com/logout.php?next=" + next.toString() + "&access_token=" + accessToken);
+        String oauthCode = request.getParameter("code");
+        
+        try {
+            fb.getOAuthAccessToken(oauthCode);
+        } catch (FacebookException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            request.getSession().setAttribute("username", fb.getName());
+            request.getSession().setAttribute("loggedIn", true);
+        } catch (FacebookException ex) {
+            Logger.getLogger(CallBack.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(CallBack.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

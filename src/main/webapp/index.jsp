@@ -55,9 +55,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
-                   <a href="#" class="navbar-brand">Code Streamers <c:if test="${sessionScope.loggedIn}"><small>Welcome ${sessionScope.username}</c:if></small></a>
-                    
-                    
+                   <a href="" class="navbar-brand">Code Streamers <c:if test="${sessionScope.loggedIn}"><small>Welcome ${sessionScope.username}</c:if></small></a>
                </div>
                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                    <ul class="nav navbar-nav navbar-right">
@@ -82,7 +80,7 @@
                </div><!-- /.navbar-collapse -->
            </div>
         </nav>
-        <div id="editor"></div>
+    <a href="new">New Stream</a>
     </body>
 </html>
 
