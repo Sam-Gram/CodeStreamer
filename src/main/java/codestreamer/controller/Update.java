@@ -100,9 +100,24 @@ public class Update extends HttpServlet {
             throws ServletException, IOException {
         try {
             String streamId = getStreamID(request);
-            AsyncContext asyncContext = request.startAsync();
-            asyncContext.setTimeout(TIMEOUT);
-            streams.get(streamId).getRequests().add(asyncContext);
+            Stream stream = streams.get(streamId);
+
+            int actionNum = Integer.parseInt(request.getParameter("actionNum"));
+
+            if (actionNum < stream.getActionsList().size()) {
+                String actions = stream.getActionsFrom(actionNum);
+                response.setContentType("text/event-stream");
+                response.setCharacterEncoding("UTF-8");
+                response.setHeader("Cache-Control", "no-cache");
+                PrintWriter writer = response.getWriter();
+                writer.write("retry: 0\n");
+                writer.write("data: " + actions + "\n\n");
+                writer.flush();
+            } else {
+                AsyncContext asyncContext = request.startAsync();
+                asyncContext.setTimeout(TIMEOUT);
+                streams.get(streamId).getRequests().add(asyncContext);
+            }
         } catch (StreamIDNotFoundException e) {
             response.getOutputStream().print("Cannot call /Update from a non-stream.");
             System.err.println(e.getMessage());
@@ -148,6 +163,9 @@ public class Update extends HttpServlet {
                 return;
             }
 
+            // Add the action to the action list.
+            stream.getActionsList().add(change);
+
             // Loop through all the GET requests and respond to them.
             for (AsyncContext context : stream.getRequests()) {
                 HttpServletResponse aResponse = (HttpServletResponse) context.getResponse();
@@ -156,13 +174,15 @@ public class Update extends HttpServlet {
                 aResponse.setCharacterEncoding("UTF-8");
                 aResponse.setHeader("Cache-Control", "no-cache");
 
+                // Write the response.
                 PrintWriter writer = aResponse.getWriter();
-                writer.write("retry: 0\n");  // tell the viewer to immediately make a new request after this response
+                writer.write("retry: 0\n");
                 writer.write("data: " + change + "\n\n");
                 writer.flush();
 
                 // We're done with this context now
-                context.complete();
+                // TODO: Find out why this is throwing exceptions.
+                context.dispatch();
             }
 
             // Remove all the contexts, so that only unfulfilled requests are in it.

@@ -1,6 +1,7 @@
 package codestreamer.model;
 
 import javax.servlet.AsyncContext;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class Stream {
     private String owner;
 
     /**
+     * A list of all the actions the host has performed on this stream.
+     */
+    private List<String> actionsList = new ArrayList<>();
+
+    /**
      * Constructs a Stream attached to an owner.
      * @param owner
      */
@@ -31,6 +37,34 @@ public class Stream {
     }
 
     public String getOwner() {
-       return owner;
+        return owner;
+    }
+
+    public List<String> getActionsList() {
+        return actionsList;
+    }
+
+    /**
+     * Gets a list of all the actions in a JSON array String.
+     * @param actionNum The action to start at.
+     * @return A String containing a JSON array of all the actions.
+     */
+    public String getActionsFrom(int actionNum) {
+        StringBuilder sb = new StringBuilder();
+        String action;
+        for (int i = actionNum; i < actionsList.size(); i++) {
+            action = actionsList.get(i);
+            sb.append(action);
+
+            // Only append the comma if it's not the last element in the array
+            if (i + 1 != actionsList.size())
+                sb.append(',');
+        }
+
+        // Wrap the list in brackets to make it a JSON array.
+        sb.insert(0, '[');
+        sb.insert(sb.length(), ']');
+
+        return sb.toString();
     }
 }

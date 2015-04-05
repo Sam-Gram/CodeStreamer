@@ -1,6 +1,5 @@
 $(document).ready(function () {
     codeMirror = CodeMirror($('#editor').get()[0], {
-        value: "function myScript()\n{\n   return 100;\n}\n",
         mode: "clike",
         matchBrackets: true,
         autoCloseBrakets: true,
@@ -36,7 +35,7 @@ function setViewer() {
  * Tells the browser to send a POST every time the user make a change in the text editor.
  */
 function registerChangeListener() {
-    codeMirror.on("changes", function(editor, change) {
+    codeMirror.on("change", function(editor, change) {
         $.ajax({
             type: "POST",
             url: "Update",
@@ -49,25 +48,67 @@ function registerChangeListener() {
  * Sets up an Event Source, which will allow the server to 'push' information to the client.
  */
 function startEventSource() {
+    counter = 0;
+
     // Check if the browser supports Server-Sent Events
     if (typeof(EventSource) !== "undefined") {
         // Create a new Event Source to receive updates from /Update
-        var source = new EventSource("Update");
+        var source = new EventSource("Update?actionNum=" + counter);
+        source.addEventListener('message', messageHandler, false);
 
         // When the server sends info...
-        source.onmessage = function(event) {
-            // Get the changes from the request.
-            var change = JSON.parse(event.data);
-
-            // Loop through all the change objects (usually one, but sometimes there's two).
-            for (var i = 0; i < change.length; i++) {
-                codeMirror.replaceRange(change[i].text, change[i].from,
-                                        change[i].to, change[i].origin);
-            }
-        };
+        //source.onmessage = function(event) {
+        //    // Get the changes from the request.
+        //    var change = JSON.parse(event.data);
+        //
+        //    if (typeof(change) == "object") {
+        //        codeMirror.replaceRange(change.text, change.from,
+        //            change.to, change.origin);
+        //        counter++;
+        //    } else {
+        //        // Loop through all the change objects (usually one, but sometimes there's two).
+        //        for (var i = 0; i < change.length; i++) {
+        //            codeMirror.replaceRange(change[i].text, change[i].from,
+        //                change[i].to, change[i].origin);
+        //            counter++;
+        //        }
+        //    }
+        //    event.target.close();
+        //    source = new EventSource("Update?actionNum=" + counter);
+        //
+        //
+        //    source.url = event.target.URL = event.target.url = source.url.substr(0, source.url.length-1) + counter;
+        //    console.log(source.url);
+        //};
     } else {
         $("#editor").empty();
         $("#editor").append("<h1>Your browser is not supported!</h1>");
     }
 }
+
+function messageHandler(event) {
+    // Get the changes from the request.
+    var change = JSON.parse(event.data);
+
+    if (change.length === undefined) {
+        codeMirror.replaceRange(change.text, change.from,
+            change.to, change.origin);
+        counter++;
+    } else {
+        // Loop through all the change objects (usually one, but sometimes there's two).
+        for (var i = 0; i < change.length; i++) {
+            codeMirror.replaceRange(change[i].text, change[i].from,
+                change[i].to, change[i].origin);
+            counter++;
+        }
+    }
+    event.target.close();
+    var source = new EventSource("Update?actionNum=" + counter);
+    source.addEventListener('message', messageHandler, false);
+
+
+    source.url = event.target.URL = event.target.url = source.url.substr(0, source.url.length-1) + counter;
+    console.log(source.url);
+};
+
 
