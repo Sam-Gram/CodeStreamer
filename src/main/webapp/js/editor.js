@@ -30,7 +30,7 @@ function setHost() {
  */
 function setViewer() {
     startEventSource();
-    codeMirror.
+    codeMirror.setOption("readOnly", true);
 }
 
 /**
