@@ -55,6 +55,7 @@ public class StreamView extends HttpServlet {
 
             // Check the Map of streams, to see if the requested stream actually exists. If it does, render it.
             if (streams.containsKey(streamID)) {
+                response.setContentType("text/html");
                 request.getRequestDispatcher("/streamview.jsp").include(request, response);
             } else {
                 response.getOutputStream().print("There is no stream with the id " + streamID);
