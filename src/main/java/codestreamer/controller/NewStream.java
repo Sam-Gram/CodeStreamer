@@ -53,6 +53,7 @@ public class NewStream extends HttpServlet {
         streams.put(streamID, new Stream(request.getSession().getId()));
 
         // Redirect the user to the new stream
+        response.setContentType("text/html");
         response.sendRedirect("stream/" + streamID);
     }
 }
