@@ -1,6 +1,6 @@
 $(document).ready(function () {
     codeMirror = CodeMirror($('#editor').get()[0], {
-        value: "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n   cout << \"Hello World\\n << endl;\"\n   return 0;\n}\n",
+        value: "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n   cout << \"Hello World\\n\" << endl;\n   return 0;\n}\n",
         mode: "clike",
         matchBrackets: true,
         autoCloseBrakets: true,
