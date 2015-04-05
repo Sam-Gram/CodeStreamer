@@ -13,9 +13,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * A simple servlet that will act as the index.
+ */
 @WebServlet(name = "Index", urlPatterns = {"/Index"})
 public class Index extends HttpServlet {
 
+    /**
+     * Gets the list of current streams, and passes it to "index.jsp".
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<String, List<Stream>> streams = (HashMap<String, List<Stream>>) getServletContext().getAttribute("streams");
