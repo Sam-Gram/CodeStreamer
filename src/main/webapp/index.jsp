@@ -79,7 +79,24 @@
                </div><!-- /.navbar-collapse -->
            </div>
         </nav>
-    <a href="new">New Stream</a>
+        <div class="row">
+            <div class="col-xs-6">
+                <h3>Welcome to Code Streamers</h3>
+                <p>Here at Code Streamers, you can broadcast your coding to others! Click the "New Stream" button to
+                get started!</p>
+                <a href="new" class="btn btn-default">New Stream</a>
+            </div>
+            <div class="col-xs-6">
+                <h3>Streams</h3>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <c:forEach items="${keys}" var="current">
+                            <a href="stream/${current}">${current}</a><br>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 

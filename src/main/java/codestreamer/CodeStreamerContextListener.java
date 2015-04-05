@@ -22,7 +22,6 @@ public class CodeStreamerContextListener implements ServletContextListener {
 //        servletContextEvent.getServletContext().setAttribute("db", db);
 
         HashMap<String, Stream> streams = new HashMap<>();
-        streams.put("test", new Stream("test-owner"));
         servletContextEvent.getServletContext().setAttribute("streams", streams);
     }
 
