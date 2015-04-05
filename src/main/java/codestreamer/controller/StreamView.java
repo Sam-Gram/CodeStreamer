@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Displays the requested stream to the user.
  */
-@WebServlet(name = "codestreamer.controller.StreamView", urlPatterns = {"/stream/*"})
+@WebServlet(name = "StreamView", urlPatterns = {"/stream/*"})
 public class StreamView extends HttpServlet {
 
     /**

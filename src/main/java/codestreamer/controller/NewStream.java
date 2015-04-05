@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * A servlet that creates a new stream and adds it to the HashMap of streams.
  */
-@WebServlet(name = "codestreamer.controller.NewStream", urlPatterns = {"/new"})
+@WebServlet(name = "NewStream", urlPatterns = {"/new"})
 public class NewStream extends HttpServlet {
 
     /**
