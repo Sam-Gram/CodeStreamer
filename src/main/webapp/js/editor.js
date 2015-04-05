@@ -55,31 +55,6 @@ function startEventSource() {
         // Create a new Event Source to receive updates from /Update
         var source = new EventSource("Update?actionNum=" + counter);
         source.addEventListener('message', messageHandler, false);
-
-        // When the server sends info...
-        //source.onmessage = function(event) {
-        //    // Get the changes from the request.
-        //    var change = JSON.parse(event.data);
-        //
-        //    if (typeof(change) == "object") {
-        //        codeMirror.replaceRange(change.text, change.from,
-        //            change.to, change.origin);
-        //        counter++;
-        //    } else {
-        //        // Loop through all the change objects (usually one, but sometimes there's two).
-        //        for (var i = 0; i < change.length; i++) {
-        //            codeMirror.replaceRange(change[i].text, change[i].from,
-        //                change[i].to, change[i].origin);
-        //            counter++;
-        //        }
-        //    }
-        //    event.target.close();
-        //    source = new EventSource("Update?actionNum=" + counter);
-        //
-        //
-        //    source.url = event.target.URL = event.target.url = source.url.substr(0, source.url.length-1) + counter;
-        //    console.log(source.url);
-        //};
     } else {
         $("#editor").empty();
         $("#editor").append("<h1>Your browser is not supported!</h1>");
