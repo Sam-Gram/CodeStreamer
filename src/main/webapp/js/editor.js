@@ -30,6 +30,7 @@ function setHost() {
  */
 function setViewer() {
     startEventSource();
+    codeMirror.
 }
 
 /**
