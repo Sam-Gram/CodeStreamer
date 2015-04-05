@@ -4,7 +4,7 @@
 <html>
 <head>
   <title>Code Streamers</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
   <base href="../">
   <!--Styles-->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
